@@ -1,0 +1,216 @@
+<div class="p-3 mt-4 mx-auto">
+    <div class="desc-container">
+        <div class="child">
+            <h1 class="text-center">Los productos que ofrecen nuestros Artesanos y Productores</h1>
+        </div>
+    </div>
+
+    <div class="card-container"></div>
+
+
+</div>
+
+<script>
+    
+//este codigo es solamente de ejemplo, ya que como tal, el contenido es estatico, a continuacion
+// dejo un ejemplo, de como seria el codigo, si trajera los datos dinamicamente desde una base de datos con PHP
+     
+
+    
+cardContainer = document.querySelector('.card-container');
+
+cardsData = [
+  {image: '../../img/arracada.jpg', title: 'Arracada Jerezana', description: 'Lorem ipsum dolor sit amet.'},
+  {image: '../../img/burritos.jpg', title: 'Burritos la palma', description: 'Consectetur adipiscing elit.'},
+  {image: '../../img/chocolate.jpg', title: 'Chocolate', description: 'Sed do eiusmod tempor incididunt.'},
+  {image: '../../img/cintos.jpg', title: 'Cintos Pitiados', description: 'Ut labore et dolore magna aliqua.'},
+  {image: '../../img/dulces.jpg', title: 'Dulces tipicos', description: 'Ut enim ad minim veniam.'},
+  {image: '../../img/nopales.jpeg', title: 'Nopal', description: 'Quis nostrud exercitation ullamco.'},
+  {image: '../../img/vinos.jpg', title: 'Vinos', description: 'Duis aute irure dolor in reprehenderit.'},
+  {image: '../../img/tostadas.jpeg', title: 'Tostadas Jerezanas', description: 'Excepteur sint occaecat cupidatat non proident.'},
+];
+
+function createCard(data) {
+  const card = document.createElement('div');
+  card.classList.add('card');
+
+  const image = document.createElement('img');
+  image.src = data.image;
+  image.classList.add('card-image');
+  card.appendChild(image);
+
+  const cardBody = document.createElement('div');
+  cardBody.classList.add('card-body', 'd-flex', 'flex-column');
+
+  const title = document.createElement('h3');
+  title.textContent = data.title;
+  title.classList.add('text-dark', 'mb-3');
+  cardBody.appendChild(title);
+
+  const description = document.createElement('p');
+  description.textContent = data.description;
+  description.classList.add('text-dark', 'flex-grow-1');
+  cardBody.appendChild(description);
+
+  const buttonContainer = document.createElement('div');
+  buttonContainer.classList.add('d-flex','justify-content-center');
+
+  const button = document.createElement('button');
+  button.classList.add('btn', 'btn-primary', 'btn-custom', 'w-70', 'text-light');
+  button.textContent = 'Mas informacion';
+        button.addEventListener("click", () => {
+            openOneArticle("null", "more");
+        });
+  buttonContainer.appendChild(button);
+
+  cardBody.appendChild(buttonContainer);
+  card.appendChild(cardBody);
+
+  return card;
+}
+
+
+function createCards(cardsData) {
+  cardsData.forEach(data => {
+    const card = createCard(data);
+    cardContainer.appendChild(card);
+  });
+}
+
+createCards(cardsData);
+
+//codigo para obtener los datos de la base de datos, crear las cards para mostrar los datos
+//y mostrar los datos en una pantalla aparte
+//este codigo lo obtuve de otra actividad de Web dinamica, aunque no aplicaria del todo a este
+//sistema ya que es de otro topico, se adaptaria solamente a lo que se tiene aqui y se puede aplicar
+//aunque justo ahora no porque no existe como tal el backend en PHP, aunque la base de datos si.
+
+//   function getArticles() {
+//     $.ajax({
+//         url: '../html/php/get.php',
+//         method: 'POST',
+//         data: { peticion: 'obtener_articulos' },
+//         dataType: 'json',
+//         success: function (resultado) {
+//             createCards(resultado)
+//         },
+//         error: function (xhr, status, error) {
+
+//             alert('Error al hacer la petición AJAX: ' + error);
+//         }
+//     });
+// }
+
+// function createCards(array) {
+//     let row = document.getElementById("data");
+//     array.forEach(element => {
+//         let div = document.createElement('div');
+//         div.className = "col-sm-3 m-1 pt-1 pb-3 bg-dark rounded";
+//         let h3 = document.createElement('h3');
+//         h3.className = "text-center";
+//         h3.innerHTML = element.Titulo_Articulo;
+//         let hr = document.createElement('hr');
+//         let img = document.createElement('img');
+//         img.src = element.url;
+//         img.width = 200;
+//         img.height = 150;
+//         let auth = document.createElement('h5');
+//         auth.innerHTML = "Autor(a): " + element.Autor_Articulo;
+//         auth.className = "my-2";
+
+
+//         let p = document.createElement('p');
+//         p.innerText = "Fecha Publicacion: " + element.Fecha_Publicacion;
+//         p.className = "text-right my-2";
+//         let divBtn = document.createElement('div');
+//         divBtn.className = "mt-3 centered";
+//         let button = document.createElement('button');
+//         button.className = "btn btn-form btn-primary";
+//         button.setAttribute('id', element.id_Articulo);
+//         button.addEventListener("click", () => {
+//             openOneArticle(button.id, "preview");
+//         });
+//         button.innerHTML = "Saber Mas";
+//         divBtn.appendChild(button);
+//         div.appendChild(h3);
+//         div.appendChild(hr);
+//         div.appendChild(auth);
+//         div.appendChild(img);
+//         div.appendChild(p);
+//         div.appendChild(divBtn);
+//         row.appendChild(div);
+//     });
+
+//     filter();
+//     document.getElementById("filterInput").addEventListener("keyup", filter);
+//     document.getElementById("filterOption").addEventListener("change", filter);
+// }
+
+// function filter() {
+//     var option = document.getElementById("filterOption").value;
+//     var input = document.getElementById("filterInput").value.toUpperCase();
+//     var articles = document.getElementById("data").getElementsByClassName("col-sm-3");
+
+//     for (var i = 0; i < articles.length; i++) {
+//         var article = articles[i];
+
+//         if (option == "name") {
+//             var title = article.getElementsByTagName("h3")[0].textContent.toUpperCase();
+//             if (title.includes(input)) {
+//                 article.style.display = "";
+//             } else {
+//                 article.style.display = "none";
+//             }
+//         } else if (option == "date") {
+//             var date = article.getElementsByTagName("p")[0].textContent.toUpperCase();
+//             if (date.includes(input)) {
+//                 article.style.display = "";
+//             } else {
+//                 article.style.display = "none";
+//             }
+//         } else if (option == "author") {
+//             var author = article.getElementsByTagName("h5")[0].textContent.toUpperCase();
+//             if (author.includes(input)) {
+//                 article.style.display = "";
+//             } else {
+//                 article.style.display = "none";
+//             }
+//         }
+//     }
+// }
+
+
+// function openOneArticle(id, nameOfView) {
+//     openView(nameOfView);
+//     let params = {};
+//     params['id_Article'] = id;
+//     $.ajax({
+//         url: '../html/php/getOne.php',
+//         method: 'POST',
+//         data: params,
+//         dataType: 'json',
+//         success: function (resultado) {
+//             if (nameOfView === "preview") {
+               
+//                 fillPreview(resultado);
+//             }
+//             else {
+                
+//                 filltoUpdate(resultado);
+//             }
+//         },
+//         error: function (xhr, status, error) {
+//             alert('Error al hacer la petición AJAX: ' + error);
+//         }
+//     });
+// }
+
+// function fillPreview(result) {
+//     $("#id_art").val(result[0].id_Articulo);
+//     $("#title-prev").html(result[0].Titulo_Articulo);
+//     $("#auth-prev").html("Autor(a): " + result[0].Autor_Articulo);
+//     $("#date-prev").html("Fecha de publicacion " + result[0].Fecha_Publicacion);
+//     $("#content-prev").html(result[0].Cuerpo_Articulo);
+//     $("#img-prev").attr('src', result[0].url);
+// }
+</script>
