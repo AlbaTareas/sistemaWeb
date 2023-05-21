@@ -1,13 +1,14 @@
-
+let currentUser=null;
 function openView(nameOfView) {
   $("#content").children("*").remove();
   $("#content").load('../user/' + nameOfView + '.html');
 }
-function openViewA(nameOfView) {
+function openViewA(nameOfView,entity,data) {
   $("#content").children("*").remove();
-  $("#content").load('../admin/' + nameOfView + '.html');
+  $("#content").load('../admin/'+entity+'/' + nameOfView + '.html');
 }
 function openOneArticle(id,nameOfView) {
+  localStorage.setItem("id", id);
   $("#content").children("*").remove();
   $("#content").load('../user/' + nameOfView + '.html');
 }
@@ -100,4 +101,27 @@ function isValidEmail(email) {
 
 function logout(){
   window.location.replace("../../login.html")
+}
+
+
+function showToast(title, content) {
+  var toastElement = document.querySelector('.toast');
+  var toast = new bootstrap.Toast(toastElement);
+  $("#title-toast").html(title);
+  $("#content-toast").text(content);
+  $("#content-toast").addClass("text-dark");
+
+  if(title==="Exito"){
+    $(".toast-header").css('background',"#006633");
+    $("#title-toast").addClass("text-light");
+
+  }else{
+    $(".toast-header").css('background',"#CC0000");
+    $("#title-toast").addClass("text-light");
+  }
+  toast.show();
+}
+
+function currentSession(user){
+  currentUser = user;
 }

@@ -10,6 +10,11 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
   <script src="../../js/function.js"></script>
+  <script src="../../js/view.js"></script>
+  <script src="../../js/session.js"></script>
+  <script src="../../js/admin.js"></script>
+  <script src="../../js/articles.js"></script>
+  <script src="../../js/services.js"></script>
   <link rel="stylesheet" href="../../css/style.css">
   <title>Esto Es Jerez</title>
 </head>
@@ -49,15 +54,6 @@
       </li>
       <li class="nav-item">
         <a class="nav-link"id="side-services">Servicios</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link"id="side-producers">Productores</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link"id="side-arters">Artesanos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link"id="side-servicers">Prestadores Servicios</a>
       </li>
     </ul>
   </div>
@@ -100,7 +96,19 @@
     <div class="text-center p-0" style="background-color: #272727;">
       <a id="scrollTopBtn" class="text-a text-center">Ir al inicio</a>
     </div>
-
+    
+    <div class="toast-container">
+      <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true"
+        data-bs-delay="3000">
+        <div class="toast-header">
+          <strong class="me-auto" id="title-toast"></strong>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+        </div>
+        <div class="toast-body" id="content-toast">
+  
+        </div>
+      </div>
+    </div>
 
 </body>
 
@@ -110,33 +118,37 @@
   
   addClassesToNav();
   backToUp();
-  //to do: route the links
-
   $("#side-products").click(function () {
-    openViewA("generic")
+    openViewA("productos","list")
   });
   $("#side-art").click(function () {
-    openViewA("generic")
+    openViewA("artesanias","list")
   });
   $("#side-services").click(function () {
-    openViewA("generic")
-  });
-  $("#side-producers").click(function () {
-    openViewA("generic")
-  });
-  $("#side-arters").click(function () {
-    openViewA("generic")
-  });
-  $("#side-servicer").click(function () {
-    openViewA("generic")
+    openViewA("servicios","list")
   });
   $("#nav-admin").click(function () {
-    openViewA("generic")
+    openViewA("admin","list")
   });
   $("#logout").click(function () {
     logout();
   });
-  $("#side-products").click();
+  
 
+getInfo();
+
+
+function evaluatePermissions(idPermission){
+  const permisos = {
+  1: ["#side-products", "#side-services","#side-art"],
+  2: ["#side-services",  "#nav-admin"],
+  3: ["#side-services",  "#nav-admin"],
+  4: ["#side-products", "#nav-admin","#side-art" ]
+ };
+const elementosOcultar = permisos[idPermission];
+  elementosOcultar.forEach(function(elemento) {
+    $(elemento).hide();
+  });
+}
 
 </script>

@@ -1,5 +1,5 @@
 #header {
-  background-color: "CECAC6";
+  background-color: "#CECAC6";
   height: 140px;
 }
 
@@ -53,7 +53,8 @@ body {
   margin-top: 100px;
   margin-bottom: 100px;
   color: antiquewhite;
-  background: linear-gradient(90deg, rgb(85, 82, 82) 0%, rgb(97, 93, 93) 49%, rgb(85, 82, 82) 100%);
+  background-color: rgba(55, 52, 52, 1);
+  /* background: linear-gradient(90deg, rgb(85, 82, 82) 0%, rgb(97, 93, 93) 49%, rgb(85, 82, 82) 100%); */
   font-family: Georgia, 'Times New Roman', Times, serif;
 
 }
@@ -157,8 +158,8 @@ border-radius: 10px 10px 10px 10px;
 }
 
 .bckg-image {
-  width: 100%;
-  height: auto;
+  width: 400px;
+  height: 300px;
 }
 
 /* cards */
@@ -230,4 +231,34 @@ border-radius: 10px 10px 10px 10px;
 .centered{
   display: flex;
   justify-content: center;
+}
+
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.table th,
+.table td {
+  width: 25%; /* Cambia el valor según sea necesario */
+}
+.preview-image {
+  max-width: 200px;
+  max-height: 200px;
+  margin-bottom: 10px;
+}
+.form-check-input:checked {
+  background-color: #730F0F;
+}
+.table-custom{
+  background-color:#321616;
+  color: antiquewhite;
+
 }

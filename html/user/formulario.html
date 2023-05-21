@@ -30,19 +30,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Sexo:</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="sexo" id="sexo-masculino" value="masculino" required>
-                        <label class="form-check-label" for="sexo-masculino">
-                            Masculino
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="sexo" id="sexo-femenino" value="femenino" required>
-                        <label class="form-check-label" for="sexo-femenino">
-                            Femenino
-                        </div>
-                    </div>
+                
         
                     <div class="mb-3">
                         <label for="comentarios" class="form-label">Comentarios:</label>
@@ -72,10 +60,30 @@
                 const comentarios = document.getElementById("comentarios");
         
                 if (nombre.checkValidity() && apellidos.checkValidity() && telefono.checkValidity() && email.checkValidity() && direccion.checkValidity() && codpost.checkValidity()) {
-                    alert("¡Formulario enviado con éxito!");
+                    let formdata=new FormData();
+                    formdata.append("nombre",nombre.value);
+                    formdata.append("apellidos",apellidos.value);
+                    formdata.append("telefono",telefono.value);
+                    formdata.append("email",email.value);
+                    formdata.append("direccion",direccion.value);
+                    formdata.append("codigo-postal",codpost.value);
+                    formdata.append("comentarios",comentarios.value);
+                    $.ajax({
+                        type: "POST",
+                        url: "../../php/comments/save.php",
+                        data: formdata,
+                        dataType: "text",
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                           if(response==="1") {
+                            showToast("Exito","Comentario guardado correctamente")
+                           }else{
+                            showToast("Error",response)
+                           }
+                        }
+                    });
                     formulario.reset();
-                } else {
-                    alert("Por favor, complete todos los campos correctamente.");
                 }
             });
         </script>
